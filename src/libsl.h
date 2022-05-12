@@ -6,7 +6,7 @@
 /*   By: lucas-ma <lucas-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:28:12 by lucas-ma          #+#    #+#             */
-/*   Updated: 2022/05/06 17:31:05 by lucas-ma         ###   ########.fr       */
+/*   Updated: 2022/05/11 12:31:47 by lucas-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 
 typedef struct s_map
 {
@@ -38,6 +39,10 @@ typedef struct s_things
 	void	*win;
 	void	*pl_c;
 	void	*en_c;
+	void	*en_l;
+	void	*en_r;
+	void	*en_up;
+	void	*en_d;
 	void	*exi_c;
 	void	*pl_l;
 	void	*pl_r;
@@ -46,13 +51,30 @@ typedef struct s_things
 	void	*col;
 	void	*ex_op;
 	void	*bor;
+	int		nb_en;
 	int		nb_c;
 	int		steps;
 	t_map	map;
 }			t_things;
 
-void	free_map(t_map *map);
-t_map	create_map(char *path);
-int		map_verification(t_map map);
-int		exist_thing(t_map map, char c);
+int			close_game(void);
+int			key(int keycode);
+int			enemy(t_things *all);
+int			map_verification(t_map map);
+int			exist_thing(t_map map, char c);
+int			check_colision(char **map, int x, int y, char c);
+
+void		print_steps(void);
+void		exit_game(char *str);
+void		free_map(t_map *map);
+void		print_image(char **map, t_things img);
+void		move_player(char ***map, int x, int y);
+void		choose_image(char c, int x, int y, t_things img);
+
+t_map		create_map(char *path);
+
+t_things	*all(void);
+
+t_coords	find_player(char **map);
+
 #endif
